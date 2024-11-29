@@ -1,5 +1,4 @@
 <?php
-
 function getPdo(){
     try {
         $dsn = "pgsql:host=localhost;port=5432;dbname=plantas;";
