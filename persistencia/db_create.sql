@@ -80,10 +80,13 @@ CREATE TABLE public.generos (
 CREATE TABLE public.plantas_fotos (
 	id int4 NOT NULL DEFAULT nextval('planta_foto_id_seq'::regclass),
 	baja bool NOT NULL DEFAULT false,
+	id_planta int4 NULL,
+	id_foto int4 NULL,
+	descripcion varchar NULL,
+	fecha timestamp NULL DEFAULT now(),
 	CONSTRAINT planta_foto_pk PRIMARY KEY (id),
-	CONSTRAINT planta_foto_foto_categoria_fk FOREIGN KEY (id) REFERENCES public.fotos_categorias(id),
-	CONSTRAINT planta_foto_foto_fk FOREIGN KEY (id) REFERENCES public.fotos(id),
-	CONSTRAINT planta_foto_planta_fk FOREIGN KEY (id) REFERENCES public.plantas(id)
+	CONSTRAINT plantas_fotos_fotos_fk FOREIGN KEY (id_foto) REFERENCES public.fotos(id),
+	CONSTRAINT plantas_fotos_plantas_fk FOREIGN KEY (id_planta) REFERENCES public.plantas(id)
 );
 
 
@@ -111,7 +114,9 @@ CREATE TABLE public.especies (
 
 CREATE TABLE public.plantas_especies (
 	id int4 NOT NULL DEFAULT nextval('plantaespecie_id_seq'::regclass),
+	id_planta int4 NULL,
+	id_especie int4 NULL,
 	CONSTRAINT plantaespecie_pk PRIMARY KEY (id),
-	CONSTRAINT plantaespecie_especie_fk FOREIGN KEY (id) REFERENCES public.especies(id),
-	CONSTRAINT plantaespecie_planta_fk FOREIGN KEY (id) REFERENCES public.plantas(id)
+	CONSTRAINT plantas_especies_especies_fk FOREIGN KEY (id_especie) REFERENCES public.especies(id),
+	CONSTRAINT plantas_especies_plantas_fk FOREIGN KEY (id_planta) REFERENCES public.plantas(id)
 );
