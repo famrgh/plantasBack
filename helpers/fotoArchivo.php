@@ -3,19 +3,9 @@
 const ALTO_ANCHO_MAXIMO = 1024;
 const RUTA_DESTINO = 'fotos/';
 
-ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
+//ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
 
-function persistirFoto($url, $descripcion){
-    require( __DIR__."/conexionBD.php" );
-    $pdo = getPdo();
-
-    $stmt = $pdo->prepare("INSERT INTO fotos (url, descripcion) VALUES( :url, :descripcion )");
-    $stmt->bindParam( ':url', $url );
-    $stmt->bindParam(':descripcion', $descripcion);
-    $stmt->execute();
-
-    return $pdo->lastInsertId() ;
-}
+include(__DIR__."/../persistencia/foto.php");
 
 function getImage(){
 
@@ -103,6 +93,7 @@ function redimensionarImagen( $imagen, $rutaDestino ){
 }
 
 function saveImage(){
+
 	['image'=>$imagen, 'ext'=>$ext] = getImage();
 
 	$rutaDestino = getRutaDestinoImagen(RUTA_DESTINO, $ext);
