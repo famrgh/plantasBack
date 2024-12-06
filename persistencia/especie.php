@@ -3,35 +3,35 @@
 include_once(__DIR__."/conexionBD.php");
 include_once(__DIR__."/../helpers/respuestaJson.php");
 
-function addFamilia($nombre){
-
+function addEspecie($nombre, $idGenero){
     try{
         $pdo = getPdo();
 
-        $query = "INSERT INTO familias (nombre) values (:nombre)";
+        $query = "INSERT INTO especies (nombre, id_genero) values (:nombre, :idGenero)";
         $stmt = $pdo->prepare($query);
         $stmt->bindValue( ':nombre', $nombre);
+        $stmt->bindValue( ':idGenero', $idGenero);
         $stmt->execute();
-        respuestaExito("Familia agregada", $pdo->lastInsertId() );
+        respuestaExito( 'Especia agragada', $pdo->lastInsertId() );
     }
-    catch( Exception $e ){
-        respuestaError( $e->getMessage() );
+    catch(Exception $e){
+        respuestaError($e->getMessage());
     }
 }
 
-function getFamilia($id){
+function getEspecie($id){
     try{
         $pdo = getPdo();
 
-        $query = "SELECT * FROM familias WHERE id=:id";
+        $query = "SELECT * FROM especies WHERE id=:id";
         $stmt = $pdo->prepare($query);
         $stmt->bindValue( ':id', $id);
         $stmt->execute();
         $resp = $stmt->fetchAll();
 
-        respuestaExito( null, $resp );
+        respuestaExito('', $resp);
     }
     catch(Exception $e){
-        respuestaError( $e->getMessage() );
+        respuestaError($e->getMessage());
     }
 }

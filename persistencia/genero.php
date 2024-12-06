@@ -1,26 +1,37 @@
 <?php
 
 include_once(__DIR__."/conexionBD.php");
+include_once(__DIR__."/../helpers/respuestaJson.php");
 
 function addGenero($nombre, $idFamilia){
-    $pdo = getPdo();
+    try{
+        $pdo = getPdo();
 
-    $query = "INSERT INTO generos (nombre, idFamilia) values (:nombre, :idFamilia)";
-    $stmt = $pdo->prepare($query);
-    $stmt->bindValue( ':nombre', $nombre);
-    $stmt->bindValue( ':idFamilia', $idFamilia);
-    $stmt->execute();
-    return $pdo->lastInsertId();
+        $query = "INSERT INTO generos (nombre, id_familia) values (:nombre, :idFamilia)";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindValue( ':nombre', $nombre);
+        $stmt->bindValue( ':idFamilia', $idFamilia);
+        $stmt->execute();
+        respuestaExito("Genero agregado", $pdo->lastInsertId());
+    }
+    catch(Exception $e){
+        respuestaError($e->getMessage());
+    }
 }
 
 function getGenero($id){
-    $pdo = getPdo();
+    try{
+        $pdo = getPdo();
 
-    $query = "SELECT * FROM generos WHERE id=:id";
-    $stmt = $pdo->prepare($query);
-    $stmt->bindValue( ':id', $id);
-    $stmt->execute();
-    $resp = $stmt->fetchAll();
+        $query = "SELECT * FROM generos WHERE id=:id";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindValue( ':id', $id);
+        $stmt->execute();
+        $resp = $stmt->fetchAll();
 
-    return json_encode( $resp );
+        respuestaExito( '', $resp );
+    }
+    catch(Exception $e){
+        respuestaError($e->getMessage());
+    }
 }

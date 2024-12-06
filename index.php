@@ -9,8 +9,8 @@
 	
 <?php
 	ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
-	require(__DIR__."/persistencia/genero.php");
-	print_r(json_encode( getGenero(2) ));
+	require(__DIR__."/persistencia/planta.php");
+	print_r( addPlanta( 2, [1,2,3] ) );
 ?>
 
 <?php

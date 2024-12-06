@@ -100,7 +100,7 @@ function saveImage(){
 
 	$imagenRedimensionada = redimensionarImagen( $imagen, $rutaDestino );
 
-	persistirFoto($rutaDestino, 'desc');
+	persistirFoto($rutaDestino, 'desc', 2);
 
 	return $rutaDestino;
 }

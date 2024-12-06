@@ -1,3 +1,115 @@
+-- public.especie_id_seq definition
+
+-- DROP SEQUENCE public.especie_id_seq;
+
+CREATE SEQUENCE public.especie_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+
+-- public.familia_id_seq definition
+
+-- DROP SEQUENCE public.familia_id_seq;
+
+CREATE SEQUENCE public.familia_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+
+-- public.foto_categoria_id_seq definition
+
+-- DROP SEQUENCE public.foto_categoria_id_seq;
+
+CREATE SEQUENCE public.foto_categoria_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+
+-- public.foto_id_seq definition
+
+-- DROP SEQUENCE public.foto_id_seq;
+
+CREATE SEQUENCE public.foto_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+
+-- public.genero_id_seq definition
+
+-- DROP SEQUENCE public.genero_id_seq;
+
+CREATE SEQUENCE public.genero_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+
+-- public.planta_foto_id_seq definition
+
+-- DROP SEQUENCE public.planta_foto_id_seq;
+
+CREATE SEQUENCE public.planta_foto_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+
+-- public.planta_id_seq definition
+
+-- DROP SEQUENCE public.planta_id_seq;
+
+CREATE SEQUENCE public.planta_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+
+-- public.plantaespecie_id_seq definition
+
+-- DROP SEQUENCE public.plantaespecie_id_seq;
+
+CREATE SEQUENCE public.plantaespecie_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+
+
+
+##################################################################################################################
+
+
+
+
+
 -- public.familias definition
 
 -- Drop table
@@ -29,18 +141,6 @@ CREATE TABLE public.fotos (
 );
 
 
--- public.fotos_categorias definition
-
--- Drop table
-
--- DROP TABLE public.fotos_categorias;
-
-CREATE TABLE public.fotos_categorias (
-	id int4 NOT NULL DEFAULT nextval('foto_categoria_id_seq'::regclass),
-	CONSTRAINT foto_categoria_pk PRIMARY KEY (id)
-);
-
-
 -- public.plantas definition
 
 -- Drop table
@@ -51,7 +151,37 @@ CREATE TABLE public.plantas (
 	id int4 NOT NULL DEFAULT nextval('planta_id_seq'::regclass),
 	codigo int4 NOT NULL,
 	baja bool NOT NULL DEFAULT false,
+	fecha timestamp NULL DEFAULT now(),
 	CONSTRAINT planta_pk PRIMARY KEY (id)
+);
+
+
+-- public.categorias definition
+
+-- Drop table
+
+-- DROP TABLE public.categorias;
+
+CREATE TABLE public.categorias (
+	id int4 NOT NULL DEFAULT nextval('categorias_column1_seq'::regclass),
+	nombre varchar NOT NULL,
+	CONSTRAINT categorias_pk PRIMARY KEY (id)
+);
+
+
+-- public.fotos_categorias definition
+
+-- Drop table
+
+-- DROP TABLE public.fotos_categorias;
+
+CREATE TABLE public.fotos_categorias (
+	id int4 NOT NULL DEFAULT nextval('foto_categoria_id_seq'::regclass),
+	id_foto int4 NOT NULL,
+	id_categoria int4 NOT NULL,
+	CONSTRAINT foto_categoria_pk PRIMARY KEY (id),
+	CONSTRAINT fotos_categorias_categorias_fk FOREIGN KEY (id_categoria) REFERENCES public.categorias(id),
+	CONSTRAINT fotos_categorias_fotos_fk FOREIGN KEY (id_foto) REFERENCES public.fotos(id)
 );
 
 
