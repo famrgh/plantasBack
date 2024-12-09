@@ -41,9 +41,25 @@ function getPlanta($id){
         $stmt->execute();
         $resp = $stmt->fetchAll();
 
-        return json_encode( $resp );
+        respuestaExito('', $resp );
     }
     catch(Exception $e){
         respuestaError($e->getMessage());
+    }
+}
+
+function getPlantas(){
+    try{
+        $pdo = getPdo();
+
+        $query = "SELECT * FROM plantas ORDER BY fecha DESC";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $resp = $stmt->fetchAll();
+
+        respuestaExito('', $resp );
+    }
+    catch(Exception $e){
+        respuestaError( $e->getMessage() );
     }
 }

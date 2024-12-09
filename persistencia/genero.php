@@ -35,3 +35,19 @@ function getGenero($id){
         respuestaError($e->getMessage());
     }
 }
+
+function getGeneros(){
+    try{
+        $pdo = getPdo();
+
+        $query = "SELECT * FROM generos ORDER BY nombre";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $resp = $stmt->fetchAll();
+
+        respuestaExito( '', $resp );
+    }
+    catch(Exception $e){
+        respuestaError($e->getMessage());
+    }
+}
