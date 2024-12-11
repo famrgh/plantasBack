@@ -104,12 +104,6 @@ CREATE SEQUENCE public.plantaespecie_id_seq
 
 
 
-##################################################################################################################
-
-
-
-
-
 -- public.familias definition
 
 -- Drop table
@@ -197,6 +191,7 @@ CREATE TABLE public.generos (
 	baja bool NULL DEFAULT false,
 	id_familia int4 NULL,
 	CONSTRAINT genero_pk PRIMARY KEY (id),
+	CONSTRAINT generos_un UNIQUE (nombre),
 	CONSTRAINT generos_familias_fk FOREIGN KEY (id_familia) REFERENCES public.familias(id)
 );
 
@@ -232,6 +227,7 @@ CREATE TABLE public.especies (
 	baja bool NULL DEFAULT false,
 	id_genero int4 NULL,
 	CONSTRAINT especie_pk PRIMARY KEY (id),
+	CONSTRAINT especies_un UNIQUE (nombre),
 	CONSTRAINT especies_generos_fk FOREIGN KEY (id_genero) REFERENCES public.generos(id)
 );
 
