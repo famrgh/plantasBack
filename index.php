@@ -29,7 +29,7 @@
 
 				require( __DIR__.'/helpers/fotoArchivo.php');
 				echo "<div class='alert alert-warning' role='alert'>";
-				$rutaDestino = saveImage();
+				$rutaDestino = saveImage(1);
 				echo "</div>";
 			}
 		?>

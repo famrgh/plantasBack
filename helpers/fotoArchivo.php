@@ -92,7 +92,7 @@ function redimensionarImagen( $imagen, $rutaDestino ){
 	return $rutaDestino;
 }
 
-function saveImage(){
+function saveImage($idPlanta){
 
 	['image'=>$imagen, 'ext'=>$ext] = getImage();
 
@@ -100,7 +100,7 @@ function saveImage(){
 
 	$imagenRedimensionada = redimensionarImagen( $imagen, $rutaDestino );
 
-	persistirFoto($rutaDestino, 'desc', 2);
+	persistirFoto($rutaDestino, 'desc', $idPlanta);
 
 	return $rutaDestino;
 }
