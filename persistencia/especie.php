@@ -2,11 +2,11 @@
 
 include_once(__DIR__."/conexionBD.php");
 include_once(__DIR__."/../helpers/respuestaJson.php");
+include_once(__DIR__."/funcionesVarias.php");
 
 function addEspecie($nombre, $idGenero){
     try{
         $pdo = getPdo();
-
         $query = "INSERT INTO especies (nombre, id_genero) values (:nombre, :idGenero)";
         $stmt = $pdo->prepare($query);
         $stmt->bindValue( ':nombre', $nombre);
@@ -36,7 +36,7 @@ function getEspecie($id){
     }
 }
 
-function getEspecies(){
+function getEspecies($tipo='array'){
     try{
         $pdo = getPdo();
 
@@ -45,7 +45,13 @@ function getEspecies(){
         $stmt->execute();
         $resp = $stmt->fetchAll();
 
-        respuestaExito('', $resp);
+        switch($tipo){
+            case 'option':
+                echo pdoFetchAllToOption($resp);
+                break;
+            default:
+                respuestaExito('', $resp);
+        }
     }
     catch(Exception $e){
         respuestaError($e->getMessage());
