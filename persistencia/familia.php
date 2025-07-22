@@ -2,6 +2,7 @@
 
 include_once(__DIR__."/conexionBD.php");
 include_once(__DIR__."/../helpers/respuestaJson.php");
+include_once(__DIR__."/funcionesVarias.php");
 
 function addFamilia($nombre){
     try{
@@ -35,7 +36,7 @@ function getFamilia($id){
     }
 }
 
-function getFamilias(){
+function getFamilias($tipo='array'){
     try{
         $pdo = getPdo();
 
@@ -43,8 +44,13 @@ function getFamilias(){
         $stmt = $pdo->prepare($query);
         $stmt->execute();
         $resp = $stmt->fetchAll();
-
-        respuestaExito( null, $resp );
+        switch($tipo){
+            case 'option':
+                echo pdoFetchAllToOption($resp);
+                break;
+            default:
+                respuestaExito('', $resp);
+        }
     }
     catch(Exception $e){
         respuestaError( $e->getMessage() );

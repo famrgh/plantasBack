@@ -2,6 +2,7 @@
 
 include_once(__DIR__."/conexionBD.php");
 include_once(__DIR__."/../helpers/respuestaJson.php");
+include_once(__DIR__."/funcionesVarias.php");
 
 function addGenero($nombre, $idFamilia){
     try{
@@ -36,7 +37,7 @@ function getGenero($id){
     }
 }
 
-function getGeneros(){
+function getGeneros($tipo = 'array'){
     try{
         $pdo = getPdo();
 
@@ -45,7 +46,13 @@ function getGeneros(){
         $stmt->execute();
         $resp = $stmt->fetchAll();
 
-        respuestaExito( '', $resp );
+        switch($tipo){
+            case 'option':
+                echo pdoFetchAllToOption($resp);
+                break;
+            default:
+                respuestaExito('', $resp);
+        }
     }
     catch(Exception $e){
         respuestaError($e->getMessage());

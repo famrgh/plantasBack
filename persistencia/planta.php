@@ -2,6 +2,7 @@
 
 include( __DIR__."/conexionBD.php" );
 include_once(__DIR__."/../helpers/respuestaJson.php");
+include_once(__DIR__."/funcionesVarias.php");
 
 function addPlanta($codigo, $idsEspecie=[]){
     try{
@@ -48,7 +49,7 @@ function getPlanta($id){
     }
 }
 
-function getPlantas(){
+function getPlantas($tipo='array'){
     try{
         $pdo = getPdo();
 
@@ -57,7 +58,13 @@ function getPlantas(){
         $stmt->execute();
         $resp = $stmt->fetchAll();
 
-        respuestaExito('', $resp );
+        switch($tipo){
+            case 'option':
+                echo pdoFetchAllToOption($resp);
+                break;
+            default:
+                respuestaExito('', $resp);
+        }
     }
     catch(Exception $e){
         respuestaError( $e->getMessage() );
