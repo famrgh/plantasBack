@@ -37,18 +37,20 @@ function getGenero($id){
     }
 }
 
-function getGeneros($tipo = 'array'){
+function getGeneros($tipo = 'array', $idFamilia=null){
     try{
         $pdo = getPdo();
 
-        $query = "SELECT * FROM generos ORDER BY nombre";
+        $filtroFamilia = empty($idFamilia) ? '-1' : $idFamilia;
+
+        $query = "SELECT * FROM generos WHERE  $filtroFamilia=-1 OR id_familia = $filtroFamilia ORDER BY nombre";
         $stmt = $pdo->prepare($query);
         $stmt->execute();
         $resp = $stmt->fetchAll();
 
         switch($tipo){
             case 'option':
-                echo pdoFetchAllToOption($resp);
+                pdoFetchAllToOption($resp);
                 break;
             default:
                 respuestaExito('', $resp);

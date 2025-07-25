@@ -36,18 +36,20 @@ function getEspecie($id){
     }
 }
 
-function getEspecies($tipo='array'){
+function getEspecies($tipo='array', $idGenero){
     try{
         $pdo = getPdo();
 
-        $query = "SELECT * FROM especies ORDER BY nombre";
+        $filtroGenero = empty($idGenero) ? '-1' : $idGenero;
+
+        $query = "SELECT * FROM especies WHERE  $filtroGenero=-1 OR id_genero = $filtroGenero ORDER BY nombre";
         $stmt = $pdo->prepare($query);
         $stmt->execute();
         $resp = $stmt->fetchAll();
 
         switch($tipo){
             case 'option':
-                echo pdoFetchAllToOption($resp);
+                pdoFetchAllToOption($resp);
                 break;
             default:
                 respuestaExito('', $resp);

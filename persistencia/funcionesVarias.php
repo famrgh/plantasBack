@@ -2,7 +2,7 @@
 function pdoFetchAllToOption($fetch){
     $options = "";
     foreach($fetch as $row){
-        $options .= "<option id={$row['id']}>{$row['nombre']}</option>";
+        $options .= "<option value={$row['id']}>{$row['nombre']}</option>";
     }
-    return $options;
+    echo json_encode( ['resultado'=>$options] );
 }

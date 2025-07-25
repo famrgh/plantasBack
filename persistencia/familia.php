@@ -46,7 +46,7 @@ function getFamilias($tipo='array'){
         $resp = $stmt->fetchAll();
         switch($tipo){
             case 'option':
-                echo pdoFetchAllToOption($resp);
+                pdoFetchAllToOption($resp);
                 break;
             default:
                 respuestaExito('', $resp);
