@@ -4,13 +4,14 @@ include_once(__DIR__."/conexionBD.php");
 include_once(__DIR__."/../helpers/respuestaJson.php");
 include_once(__DIR__."/funcionesVarias.php");
 
-function addFamilia($nombre){
+function addFamilia($nombre, $id = null){
     try{
         $pdo = getPdo();
 
-        $query = "INSERT INTO familias (nombre) values (:nombre)";
+        $query = "INSERT INTO familias (nombre, id) values (:nombre, :id)";
         $stmt = $pdo->prepare($query);
         $stmt->bindValue( ':nombre', $nombre);
+        $stmt->bindValue( ':id', $id??'');
         $stmt->execute();
         respuestaExito("Familia agregada", $pdo->lastInsertId() );
     }

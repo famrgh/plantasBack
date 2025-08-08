@@ -1,6 +1,6 @@
 <?php
 
-include( __DIR__."/conexionBD.php" );
+include_once( __DIR__."/conexionBD.php" );
 include_once(__DIR__."/../helpers/respuestaJson.php");
 include_once(__DIR__."/funcionesVarias.php");
 
@@ -69,4 +69,20 @@ function getPlantas($tipo='array'){
     catch(Exception $e){
         respuestaError( $e->getMessage() );
     }
+}
+
+function getLastIdPlanta(){
+    try{
+        $pdo = getPdo();
+
+        $query = "SELECT max(id) id FROM plantas";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $resp = $stmt->fetchAll();
+
+        return $resp[0]['id'];
+    }
+    catch(Exception $e){
+        respuestaError( $e->getMessage() );
+    }   
 }

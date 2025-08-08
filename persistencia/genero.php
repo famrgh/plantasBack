@@ -4,14 +4,15 @@ include_once(__DIR__."/conexionBD.php");
 include_once(__DIR__."/../helpers/respuestaJson.php");
 include_once(__DIR__."/funcionesVarias.php");
 
-function addGenero($nombre, $idFamilia){
+function addGenero($nombre,$idGenero, $idFamilia ){
     try{
         $pdo = getPdo();
 
-        $query = "INSERT INTO generos (nombre, id_familia) values (:nombre, :idFamilia)";
+        $query = "INSERT INTO generos (nombre, id_familia, id) values (:nombre, :idFamilia, :idGenero)";
         $stmt = $pdo->prepare($query);
         $stmt->bindValue( ':nombre', $nombre);
         $stmt->bindValue( ':idFamilia', $idFamilia);
+        $stmt->bindValue( ':idGenero', $idGenero);
         $stmt->execute();
         respuestaExito("Genero agregado", $pdo->lastInsertId());
     }

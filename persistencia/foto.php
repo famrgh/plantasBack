@@ -1,6 +1,6 @@
 <?php
 
-require_once( __DIR__."/conexionBD.php" );
+include_once( __DIR__."/conexionBD.php" );
 include_once(__DIR__."/../helpers/respuestaJson.php");
 
 function persistirFoto($url, $descripcion, $idPlanta){

@@ -4,15 +4,16 @@ include_once(__DIR__."/conexionBD.php");
 include_once(__DIR__."/../helpers/respuestaJson.php");
 include_once(__DIR__."/funcionesVarias.php");
 
-function addEspecie($nombre, $idGenero){
+function addEspecie($nombre, $idEspecie, $idGenero,){
     try{
         $pdo = getPdo();
-        $query = "INSERT INTO especies (nombre, id_genero) values (:nombre, :idGenero)";
+        $query = "INSERT INTO especies (nombre, id_genero, id) values (:nombre, :idGenero, :idEspecie)";
         $stmt = $pdo->prepare($query);
         $stmt->bindValue( ':nombre', $nombre);
         $stmt->bindValue( ':idGenero', $idGenero);
+        $stmt->bindValue( ':idEspecie', $idEspecie);
         $stmt->execute();
-        respuestaExito( 'Especia agragada', $pdo->lastInsertId() );
+        respuestaExito( 'Especia agragada', $idEspecie );
     }
     catch(Exception $e){
         respuestaError($e->getMessage());

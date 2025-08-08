@@ -3,7 +3,7 @@
 const ALTO_ANCHO_MAXIMO = 1024;
 const RUTA_DESTINO = 'fotos/';
 
-//ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
+ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
 
 include(__DIR__."/../persistencia/foto.php");
 
@@ -93,6 +93,7 @@ function redimensionarImagen( $imagen, $rutaDestino ){
 }
 
 function saveImage($idPlanta){
+	require( __DIR__."/../persistencia/planta.php" );
 
 	['image'=>$imagen, 'ext'=>$ext] = getImage();
 
@@ -100,8 +101,7 @@ function saveImage($idPlanta){
 
 	$imagenRedimensionada = redimensionarImagen( $imagen, $rutaDestino );
 
-	persistirFoto($rutaDestino, 'desc', $idPlanta);
+	persistirFoto($rutaDestino, 'desc', $idPlanta );
 
 	return $rutaDestino;
 }
-
