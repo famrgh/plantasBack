@@ -1,4 +1,8 @@
 <?php
+// Permitir todos los orígenes (solo para desarrollo)
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
 
 $accion = $_GET['accion'] ?? $_POST['accion'];
 switch($accion){
@@ -19,5 +23,9 @@ switch($accion){
     case  'getPlantas':
         require( 'persistencia/planta.php' );
         getPlantas('option');
+        break;
+    case 'getPlanta':
+        require( 'persistencia/planta.php' );
+        getPlanta( $_GET['idPlanta']??null , $_GET['codPlanta']??null );
         break;
 }

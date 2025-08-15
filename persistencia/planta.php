@@ -32,14 +32,32 @@ function addPlanta($codigo, $idsEspecie=[]){
     }
 }
 
-function getPlanta($id){
+function getPlanta($id, $cod){
     try{
         $pdo = getPdo();
 
-        $query = "SELECT * FROM plantas WHERE id=:id";
-        $stmt = $pdo->prepare($query);
-        $stmt->bindValue( ':id', $id);
-        $stmt->execute();
+#        var_dump($id); var_dump($cod); die;
+
+        $query = "SELECT 
+                p.id,
+                p.codigo,
+                p.descripcion,
+                e.nombre nombreEspecie,
+                e.id idEspecie,
+                g.nombre nombreGenero,
+                g.id idGenero,
+                f.nombre nombreFamilia,
+                f.id idFamilia
+            FROM plantas p
+            join plantas_especies pe on pe.id_planta  = p.id 
+            join especies e on e.id  = pe.id_especie 
+            join generos g on g.id = e.id_genero
+            join familias f on f.id = g.id_familia 
+            WHERE 
+                (:id=-1 OR p.id = :id )AND 
+                p.codigo LIKE :cod";
+        $stmt = $pdo->prepare($query);        
+        $stmt->execute([ ':id' =>$id??-1,':cod'=>$cod??'%']);
         $resp = $stmt->fetchAll();
 
         respuestaExito('', $resp );

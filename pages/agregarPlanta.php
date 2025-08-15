@@ -1,27 +1,43 @@
 <script src="js/script.js"></script>
+<script src="js/agregarPlanta.js"></script>
 <form class='form' method='post' enctype="multipart/form-data"  >
+    <input 
+        id='codPlanta'
+        type='input'
+        placeholder='Seleccione id de planta'
+        class='form-control'
+        value="<?=$_GET['codPlanta'] ?? '' ?>"
+        <?=isset( $_GET['codPlanta']) ? 'disabled' : '' ?>
+    />
+
     <select 
-        id='selFamiliaBd'
+        id='selFamilia'
         class='form-control'
         live-search='true'
+        placeholder='Seleccione una familia'
     >
-        <option disabled selected>Seleccione familia</option>
     </select>
+
     <select 
-        id='selGeneroBd'
+        id='selGenero'
         class='form-control'
+        placeholder='Seleccione un genero'
     >
-        <option disabled selected>Seleccione genero</option>
     </select>
+
     <select 
-        id='selEspecieBd'
+        id='selEspecie'
         class='form-control'
+        placeholder='Seleccione especie'
     >
-        <option disabled selected>Seleccione especie</option>
     </select>
+
     <textarea
+        placeholder='Ingrese descripción'
         id="descripcion"
         class="form-control"
     ></textarea>
-    <input class='form-control' type = 'submit' value='Enviar imagen'/>
+
+    <input class='form-control' type = 'submit' value='Agregar planta'/>
 </form>
+

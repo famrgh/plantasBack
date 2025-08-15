@@ -41,7 +41,7 @@ function getFamilias($tipo='array'){
     try{
         $pdo = getPdo();
 
-        $query = "SELECT * FROM familias ORDER BY nombre";
+        $query = "SELECT * FROM familias WHERE baja=false ORDER BY nombre";
         $stmt = $pdo->prepare($query);
         $stmt->execute();
         $resp = $stmt->fetchAll();
