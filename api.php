@@ -8,17 +8,17 @@ $accion = $_GET['accion'] ?? $_POST['accion'];
 switch($accion){
     case  'getFamilias':
         require( 'persistencia/familia.php' );
-        getFamilias('option');
+        getFamilias($_GET['tipo']??'option');
         break;
     case  'getGeneros':
         require( 'persistencia/genero.php' );
         $idFamilia = $_GET['idFamilia'] ?? null;
-        getGeneros('option', $idFamilia);
+        getGeneros($_GET['tipo'] ?? 'option', $idFamilia);
         break;
     case 'getEspecies':
         require( 'persistencia/especie.php' );
         $idGenero = $_GET['idGenero'] ?? null;
-        getEspecies('option', $idGenero);
+        getEspecies($_GET['tipo'] ?? 'option', $idGenero);
         break;
     case  'getPlantas':
         require( 'persistencia/planta.php' );
@@ -26,6 +26,15 @@ switch($accion){
         break;
     case 'getPlanta':
         require( 'persistencia/planta.php' );
-        getPlanta( $_GET['idPlanta']??null , $_GET['codPlanta']??null );
+        getPlanta( $_GET['idPlanta'] ?? null , $_GET['codigoPlanta'] ?? null );
+        break;
+    case 'addPlanta':
+        require( 'persistencia/planta.php' );
+        $codigo = $_POST['codigo'];
+        $descripcion = $_POST['descripcion'];
+        $idsEspecies = $_POST['especies'];
+
+
+        addPlanta($codigo, $descripcion, $idsEspecies);
         break;
 }

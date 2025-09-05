@@ -4,14 +4,15 @@ include_once( __DIR__."/conexionBD.php" );
 include_once(__DIR__."/../helpers/respuestaJson.php");
 include_once(__DIR__."/funcionesVarias.php");
 
-function addPlanta($codigo, $idsEspecie=[]){
+function addPlanta($codigo, $descripcion, $idsEspecie=[]){
     try{
         $pdo = getPdo();
         $pdo->beginTransaction();
 
-        $query = "INSERT INTO plantas (codigo) values (:codigo)";
+        $query = "INSERT INTO plantas (codigo, descripcion) values (:codigo, :descripcion)";
         $stmt = $pdo->prepare($query);
         $stmt->bindValue( ':codigo', $codigo);
+        $stmt->bindValue( ':descripcion', $codigo);
         $stmt->execute();
 
         $idPlanta = $pdo->lastInsertId();
