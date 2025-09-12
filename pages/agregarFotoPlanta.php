@@ -1,5 +1,10 @@
 <?php
 ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
+// Permitir todos los orígenes (solo para desarrollo)
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+
 ?>
 
 <?php
@@ -26,8 +31,8 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
 	if(!empty($_FILES)){
 		require( __DIR__.'/../helpers/fotoArchivo.php');
 		echo "<div class='alert alert-warning' role='alert'>";
-		$idPlanta = $_GET['idPlanta'] ?? null;
-		$rutaDestino = saveImage(11);
+		$idPlanta = $_GET['idPlanta'] ?? $_POST['idPlanta'];
+		$rutaDestino = saveImage($idPlanta );
 		echo "</div>";
 	}
 ?>

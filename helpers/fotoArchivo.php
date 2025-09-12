@@ -83,7 +83,8 @@ function redimensionarImagen( $imagen, $rutaDestino ){
 	imagecopyresampled($imagenRedimensionada, $imagen, 0, 0, 0, 0, $anchoNuevo, $altoNuevo, $anchoOriginal, $altoOriginal);
 
 	// Guardar la imagen redimensionada en un archivo nuevo
-	imagejpeg($imagenRedimensionada, $rutaDestino, 90); // 90 es la calidad
+
+	imagejpeg($imagenRedimensionada, "/var/www/html/$rutaDestino", 90); // 90 es la calidad
 
 	// Liberar la memoria
 	imagedestroy($imagen);

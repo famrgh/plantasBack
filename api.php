@@ -33,8 +33,18 @@ switch($accion){
         $codigo = $_POST['codigo'];
         $descripcion = $_POST['descripcion'];
         $idsEspecies = $_POST['especies'];
-
-
         addPlanta($codigo, $descripcion, $idsEspecies);
         break;
+    case 'getFotosPlanta':
+        require 'persistencia/foto.php';
+        $idPlanta = $_GET['idPlanta'];
+        getFotos($idPlanta);
+        break;
+    case 'agregarFotoPlanta':
+        require( __DIR__.'/helpers/fotoArchivo.php');
+		$idPlanta = $_GET['idPlanta'] ?? $_POST['idPlanta'];
+		$rutaDestino = saveImage($idPlanta );
+        break;
+
+        
 }
